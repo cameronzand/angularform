@@ -7,9 +7,59 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
   </head>
-  <body>
-    <div class="container">
-      <p>Welcome to your life.</p>
+  <body ng-app="app">
+    <div class="container" ng-controller="FormController">
+      <form ng-submit="addInfo(info)">
+        <label class="label">Name</label>
+      <p class="control">
+         <input class="input" type="text"
+                ng-model="info.name" ng-keyup="validateName(info.name)">
+            <span class="input-error">{{ errors.name }}</span>
+      </p>
+
+       <label class="label">Email</label>
+      <p class="control">
+         <input class="input" type="text"
+                ng-model="info.email" ng-keyup="validateEmail(info.email)">
+              <span class="input-error">{{ errors.email }}
+      </p>
+
+       <label class="label">Website</label>
+      <p class="control">
+         <input class="input" type="text"
+                ng-model="info.website" ng-keyup="validateWebsite(info.website)">
+                <span class="input-error">{{ errors.website }}
+      </p>
+
+      <label class="label">Message</label>
+      <p class="control">
+        <textarea class="textarea"
+                  ng-model="info.message" ng-keyup="validateMessage(info.message)"></textarea>
+                  <span class="input-error">{{ errors.message }}
+      </p>
+
+      <p class="control">
+  <button class="button is-primary">Submit</button>
+      </p>
+      </form>
+
+
+    <h1> Your Information </h1>
+      <ul class="information">
+        <li ng-repeat="info in infos">
+       <span class="bold">Name:</span> {{info.name}} <br>
+       <span class="bold">Email:</span> {{info.email}} <br>
+       <span class="bold">Website:</span> {{info.website}} <br>
+       <span class="bold">Message:</span> {{info.message}} <br>
+        <button class="remove" ng-click="delete(info)">Remove Info</button>
+
+        </li>
+
+
+      </ul>
+
+
+   
     </div>
     <script src="js/bundle.js"></script>
   </body>

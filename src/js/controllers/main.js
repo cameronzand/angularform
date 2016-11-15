@@ -10,7 +10,7 @@ function FormController ($scope, $http) {
 
 	function init () {
 		$http.get(SERVER_URL).then(function (resp){
-			console.log(resp.data);
+			//console.log(resp.data);
 			$scope.infos = resp.data;
 		});
 
@@ -74,7 +74,7 @@ function FormController ($scope, $http) {
 
  	  $scope.delete = function (info) {
     	$http.delete(SERVER_URL + info._id).then(function (resp) {
-      		console.log(resp);
+      		//console.log(resp);
       	$scope.infos = $scope.infos.filter(function (x) {
        		 return x._id !== info._id;
         });

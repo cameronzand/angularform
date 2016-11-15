@@ -2,7 +2,11 @@ const SERVER_URL = 'https://class-server.herokuapp.com/collections/cams-form/';
 
 function FormController ($scope, $http) {
 	$scope.infos = [];
-	$scope.errors = {};
+	$scope.errors = {name: 'Name is required!',
+					 email: 'Valid email required!',
+					 website: 'Website required!',
+					 message: 'Message required!'
+					};
 
 	function init () {
 		$http.get(SERVER_URL).then(function (resp){
@@ -15,39 +19,48 @@ function FormController ($scope, $http) {
 	init();
 
 	 $scope.validateName = function (name) {
+
     	if (name === '') {
-     	$scope.errors.name = "Name is required!"
-    };
-  };
+     		$scope.errors.name = "Name is required!"
+	    }
+	    else {
+	    	$scope.errors.name = ''
+	    };
+	};
 
 
  	$scope.validateEmail = function (email) {
     	if (!email.includes('@')) {
-    	$scope.errors.email = "A legit email is required!"
+    	$scope.errors.email = "Must include @ symbol!"
      		return false;
-    }
+   	    }
     else {
     		$scope.errors.email = ''
     		return true;
-    };	
-  };
+   		 };	
+  	};
+
 
    	$scope.validateWebsite = function (website) {
     	if (!website.startsWith('http' || 'https')) {
-    	$scope.errors.website = "A legit website is required!"
+    	$scope.errors.website = "http or https is required!"
      		return false;
-    }
+    	}
     else {
     		$scope.errors.website = ''
     		return true;
-    };	
-  };
+    	 };	
+    };
+
 
   	 $scope.validateMessage = function (message) {
     	if (message === '') {
      	$scope.errors.message = "A message is required!"
-    };
-  };
+    	}
+    	else {
+    		$scope.errors.message = ''
+    	};
+  	 };
 
 
 
@@ -55,8 +68,8 @@ function FormController ($scope, $http) {
     	$http.post(SERVER_URL, info).then(function (resp) {
      		let info = resp.data;
      	    $scope.infos.push(info);
-    });
- };
+    	});
+	 };
 
 
  	  $scope.delete = function (info) {
@@ -64,16 +77,12 @@ function FormController ($scope, $http) {
       		console.log(resp);
       	$scope.infos = $scope.infos.filter(function (x) {
        		 return x._id !== info._id;
-      });
+        });
 
-    });
-  };
+     	});
+  	  };
 
  	
-
-
-
-
 
 }
 
